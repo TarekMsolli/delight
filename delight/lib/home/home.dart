@@ -13,11 +13,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> recipeDataList = [];
+  int loadedRecipeCount = 0;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    fetchRandomRecipes(4); // Fetch 6 random recipes
+    _scrollController.addListener(_scrollListener);
+    fetchRandomRecipes(8);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      fetchRandomRecipes(4);
+    }
   }
 
   Future<void> fetchRandomRecipes(int count) async {
@@ -28,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response.statusCode == 200) {
         setState(() {
           recipeDataList.add(json.decode(response.body)['meals'][0]);
+          loadedRecipeCount++;
         });
       } else {
         print('Failed to load data from the API');
@@ -55,13 +67,19 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              controller: _scrollController,
+              padding: const EdgeInsetsDirectional.only(
+                start: 5,
+                end: 5,
+              ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: recipeDataList.length,
+              itemCount:
+                  loadedRecipeCount, // Use the loadedRecipeCount as the itemCount
               itemBuilder: (context, index) {
                 return Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       top: 16.0), // Adjust the top margin as needed
                   child: RecipeCard(
                     recipeData: recipeDataList[index],
