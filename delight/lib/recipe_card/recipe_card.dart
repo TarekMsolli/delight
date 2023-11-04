@@ -19,7 +19,7 @@ String truncateStringToMaxLength(String input, int maxLength) {
     }
   }
 
-  return truncatedString + '...';
+  return '$truncatedString...';
 }
 
 class RecipeCard extends StatelessWidget {
@@ -55,15 +55,19 @@ class RecipeCard extends StatelessWidget {
                 ),
               ),
               child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+                child: Hero(
+                  tag: imageUrl,
                   child: FadeInImage.assetNetwork(
                     placeholder: 'assets/placeholder.png',
                     image: imageUrl,
                     fit: BoxFit.cover,
-                  )),
+                  ),
+                ),
+              ),
             ),
           ),
           Positioned(
@@ -91,17 +95,17 @@ class RecipeCard extends StatelessWidget {
             bottom: 15,
             left: 20,
             child: Text(
-              strCategory + ' - ' + strArea,
+              '$strCategory - $strArea',
             ),
           ),
-          Positioned(
-            bottom: 15,
-            right: strArea.length.toDouble() + 15,
-            child: Icon(
-              Icons.favorite,
-              color: Colors.grey,
-            ),
-          ),
+          // Positioned(
+          //   top: 15,
+          //   right: strArea.length.toDouble() + 15,
+          //   child: const Icon(
+          //     Icons.favorite,
+          //     color: Colors.pink,
+          //   ),
+          // ),
         ],
       ),
     );

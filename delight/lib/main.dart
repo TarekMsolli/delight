@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'home/home.dart';
 import 'favorites/favorites.dart';
 import 'info/info.dart';
+// ignore: unused_import
 import 'recipe_card/recipe_card.dart';
 
-void main() => runApp(Delight());
+void main() => runApp(const Delight());
 
 class Delight extends StatefulWidget {
+  const Delight({super.key});
+
   @override
   _DelightState createState() => _DelightState();
 }
@@ -16,9 +19,9 @@ class _DelightState extends State<Delight> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    HomeScreen(),
-    FavoritesScreen(),
-    InfoScreen(),
+    const HomeScreen(),
+    const FavoritesScreen(),
+    const InfoScreen(),
   ];
 
   void _onTabTapped(int index) {
@@ -31,10 +34,6 @@ class _DelightState extends State<Delight> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.red,
-        hintColor: Colors.green,
-      ),
       home: Scaffold(
         body: _screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(

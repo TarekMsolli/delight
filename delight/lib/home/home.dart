@@ -41,9 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
           recipeDataList.add(json.decode(response.body)['meals'][0]);
           loadedRecipeCount++;
         });
-      } else {
-        print('Failed to load data from the API');
       }
+      // else {
+      //   print('Failed to load data from the API');
+      // }
     }
   }
 
@@ -51,15 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Color.fromARGB(255, 230, 140, 67),
+        ),
         backgroundColor: Colors.white,
-        title: const Center(
-          child: Text(
-            'Home',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins'),
-          ),
+        title: const Text(
+          'Home',
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins'),
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 228, 211),
