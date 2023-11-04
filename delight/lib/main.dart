@@ -32,8 +32,8 @@ class _DelightState extends State<Delight> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.red, // Change the primary color
-        hintColor: Colors.green, // Change the accent color
+        primaryColor: Colors.red,
+        hintColor: Colors.green,
       ),
       home: Scaffold(
         body: _screens[_currentIndex],

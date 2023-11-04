@@ -75,12 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount:
-                  loadedRecipeCount, // Use the loadedRecipeCount as the itemCount
+              itemCount: loadedRecipeCount,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: const EdgeInsets.only(
-                      top: 16.0), // Adjust the top margin as needed
+                  margin: const EdgeInsets.only(top: 16.0),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(

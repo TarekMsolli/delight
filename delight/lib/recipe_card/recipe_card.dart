@@ -80,7 +80,6 @@ class RecipeCard extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins',
                       fontSize: 18,
                     ),
                   )
