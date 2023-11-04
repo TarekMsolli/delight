@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> recipeDataList = [];
   int loadedRecipeCount = 0;
   final ScrollController _scrollController = ScrollController();
+  bool _isVisible = false;
   @override
   void initState() {
     super.initState();
@@ -28,6 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       fetchRandomRecipes(4);
+    }
+    if (_scrollController.offset > 100) {
+      setState(() {
+        _isVisible = true;
+      });
+    } else {
+      setState(() {
+        _isVisible = false;
+      });
     }
   }
 
@@ -51,6 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Text("test"),
+      ),
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Color.fromARGB(255, 230, 140, 67),
@@ -101,11 +114,24 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 14,
-        onPressed: () {},
-        child: const Icon(Icons.move_up),
-        backgroundColor: Color.fromARGB(255, 230, 140, 67),
+      floatingActionButton: Opacity(
+        opacity: _isVisible ? 1.0 : 0.0,
+        child: AnimatedSwitcher(
+          //TODO fix floating button animation snapping instead of fading out
+          duration: const Duration(milliseconds: 500),
+          child: _isVisible
+              ? FloatingActionButton(
+                  elevation: 14,
+                  onPressed: () {
+                    _scrollController.animateTo(0,
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.easeInOut);
+                  },
+                  backgroundColor: const Color.fromARGB(255, 230, 140, 67),
+                  child: const Icon(Icons.move_up),
+                )
+              : const SizedBox(),
+        ),
       ),
     );
   }

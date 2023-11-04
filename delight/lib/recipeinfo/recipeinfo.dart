@@ -10,6 +10,7 @@ class RecipeInfo extends StatelessWidget {
     String recipeName = recipeData['strMeal'] ?? 'No Recipe Name';
     final String imageUrl = recipeData['strMealThumb'] ?? '';
     final String strInstructions = recipeData['strInstructions'] ?? '';
+    final String idMeal = recipeData['idMeal'] ?? '';
 
     List<String> ingredients = [];
     for (int i = 1; i <= 9; i++) {
@@ -59,7 +60,7 @@ class RecipeInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '\n$recipeName',
+                    '\n$idMeal - $recipeName',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
