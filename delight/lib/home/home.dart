@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:delight/recipe_card/recipe_card.dart';
+import 'package:delight/recipeinfo/recipeinfo.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> recipeDataList = [];
   int loadedRecipeCount = 0;
   final ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -81,8 +81,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container(
                   margin: const EdgeInsets.only(
                       top: 16.0), // Adjust the top margin as needed
-                  child: RecipeCard(
-                    recipeData: recipeDataList[index],
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RecipeInfo(recipeData: recipeDataList[index]),
+                        ),
+                      );
+                    },
+                    child: RecipeCard(
+                      recipeData: recipeDataList[index],
+                    ),
                   ),
                 );
               },
