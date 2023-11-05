@@ -76,7 +76,7 @@ class RecipeInfo extends StatelessWidget {
                   ),
                   Text(
                     '\n$strInstructions',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),

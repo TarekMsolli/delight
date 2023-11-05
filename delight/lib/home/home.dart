@@ -17,6 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int loadedRecipeCount = 0;
   final ScrollController _scrollController = ScrollController();
   bool _isVisible = false;
+  int crossAxisCount = 2;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void updateCrossAxisCount(double screenWidth) {
+    crossAxisCount = (screenWidth ~/ 350) + 1 - (screenWidth ~/ 1000);
+  }
+
   Future<void> fetchRandomRecipes(int count) async {
     for (int i = 0; i < count; i++) {
       final response = await http
@@ -52,16 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
           loadedRecipeCount++;
         });
       }
-      // else {
-      //   print('Failed to load data from the API');
-      // }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    updateCrossAxisCount(MediaQuery.of(context).size.width);
+
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         child: Text("test"),
       ),
       appBar: AppBar(
@@ -81,33 +86,37 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Expanded(
-            child: GridView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsetsDirectional.only(
-                start: 5,
-                end: 5,
-              ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: loadedRecipeCount,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(top: 16.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              RecipeInfo(recipeData: recipeDataList[index]),
-                        ),
-                      );
-                    },
-                    child: RecipeCard(
-                      recipeData: recipeDataList[index],
-                    ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return GridView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 5,
+                    end: 5,
                   ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                  ),
+                  itemCount: loadedRecipeCount,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.only(top: 16.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  RecipeInfo(recipeData: recipeDataList[index]),
+                            ),
+                          );
+                        },
+                        child: RecipeCard(
+                          recipeData: recipeDataList[index],
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -117,7 +126,6 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Opacity(
         opacity: _isVisible ? 1.0 : 0.0,
         child: AnimatedSwitcher(
-          //TODO fix floating button animation snapping instead of fading out
           duration: const Duration(milliseconds: 500),
           child: _isVisible
               ? FloatingActionButton(

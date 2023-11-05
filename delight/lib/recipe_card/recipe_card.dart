@@ -82,31 +82,26 @@ class RecipeCard extends StatelessWidget {
                 children: [
                   Text(
                     recipeName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: (MediaQuery.of(context).size.width > 340)
+                          ? (MediaQuery.of(context).size.width / 30)
+                          : (MediaQuery.of(context).size.width / 10),
                     ),
-                  )
+                  ),
+                  Text(
+                    '$strCategory - $strArea',
+                    style: TextStyle(
+                      fontSize: (MediaQuery.of(context).size.width > 340)
+                          ? (MediaQuery.of(context).size.width / 40)
+                          : (MediaQuery.of(context).size.width / 20),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          Positioned(
-            bottom: 15,
-            left: 20,
-            child: Text(
-              '$strCategory - $strArea',
-            ),
-          ),
-          // Positioned(
-          //   top: 15,
-          //   right: strArea.length.toDouble() + 15,
-          //   child: const Icon(
-          //     Icons.favorite,
-          //     color: Colors.pink,
-          //   ),
-          // ),
         ],
       ),
     );
