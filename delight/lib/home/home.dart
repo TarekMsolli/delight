@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 230, 140, 67),
+          color: Colors.black,
         ),
         backgroundColor: Colors.white,
         title: const Text(
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
               fontFamily: 'Poppins'),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 255, 228, 211),
+      backgroundColor: const Color.fromARGB(255, 245, 207, 163),
       body: Column(
         children: [
           Expanded(

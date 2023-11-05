@@ -26,7 +26,7 @@ class RecipeInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 230, 140, 67),
+          color: Colors.black,
         ),
         backgroundColor: const Color.fromARGB(255, 255, 228, 211),
         title: Text(
