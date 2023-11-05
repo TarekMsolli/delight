@@ -101,6 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 14,
+        onPressed: () {},
+        child: const Icon(Icons.move_up),
+        backgroundColor: Color.fromARGB(255, 230, 140, 67),
+      ),
     );
   }
 }

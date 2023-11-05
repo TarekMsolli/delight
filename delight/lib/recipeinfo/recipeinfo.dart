@@ -10,6 +10,18 @@ class RecipeInfo extends StatelessWidget {
     String recipeName = recipeData['strMeal'] ?? 'No Recipe Name';
     final String imageUrl = recipeData['strMealThumb'] ?? '';
     final String strInstructions = recipeData['strInstructions'] ?? '';
+
+    List<String> ingredients = [];
+    for (int i = 1; i <= 9; i++) {
+      String ingredientKey = 'strIngredient$i';
+      String measureKey = 'strMeasure$i';
+      String ingredient = recipeData[ingredientKey];
+      String measure = recipeData[measureKey];
+      if (ingredient.isNotEmpty) {
+        ingredients.add('$ingredient: $measure');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -30,7 +42,7 @@ class RecipeInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: imageUrl,
+              tag: '${recipeData['idMeal']}_$imageUrl',
               child: Container(
                 height: 200.0,
                 decoration: BoxDecoration(
@@ -44,6 +56,7 @@ class RecipeInfo extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     '\n$recipeName',
@@ -62,6 +75,28 @@ class RecipeInfo extends StatelessWidget {
                   ),
                   Text(
                     '\n$strInstructions',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    "\n\nIngredients\n",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 230, 140, 67),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: ingredients
+                        .map((ingredient) => Text(
+                              ingredient,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ))
+                        .toList(),
                   ),
                 ],
               ),

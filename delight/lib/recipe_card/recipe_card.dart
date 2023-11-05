@@ -37,6 +37,7 @@ class RecipeCard extends StatelessWidget {
     final String strArea = recipeData['strArea'] ?? 'No Area';
 
     return Card(
+      elevation: 14,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -60,7 +61,7 @@ class RecipeCard extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 ),
                 child: Hero(
-                  tag: imageUrl,
+                  tag: '${recipeData['idMeal']}_$imageUrl',
                   child: FadeInImage.assetNetwork(
                     placeholder: 'assets/placeholder.png',
                     image: imageUrl,
